@@ -15,3 +15,7 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+
+# Ignore persistence.xml file
+/deloitte-jax-rs-demo/src/main/resources/META-INF/persistence.xml
