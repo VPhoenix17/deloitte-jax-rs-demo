@@ -44,7 +44,8 @@ public class DepartmentResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateDepartment(@PathParam("id") int id, Department updatedDepartment) {
         departmentRepository.updateDepartment(id, updatedDepartment);
-        return Response.status(Response.Status.OK).entity(updatedDepartment).build();
+        Department newDepartment = departmentRepository.getDepartmentById(id);
+        return Response.status(Response.Status.OK).entity(newDepartment).build();
     }
 
     @DELETE
