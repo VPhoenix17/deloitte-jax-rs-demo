@@ -1,98 +1,87 @@
 package com.deloitte.demo.resource;
 
-import java.util.List;
+import com.deloitte.demo.model.Employee;
+import com.deloitte.demo.model.Department;
+import com.deloitte.demo.repository.EmployeeRepository;
+import com.deloitte.demo.repository.DepartmentRepository;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import com.deloitte.demo.model.Employee;
-import com.deloitte.demo.repository.EmployeeRepository;
+import java.util.List;
 
 @Path("/employees")
 public class EmployeeResource {
 
-	private EmployeeRepository employeeRepository = new EmployeeRepository();;
+    private final EmployeeRepository employeeRepository = new EmployeeRepository();
+    private final DepartmentRepository departmentRepository = new DepartmentRepository();
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Employee> getAllEmployees() {
-		return employeeRepository.getAllEmployees();
-	}
-	
-	
-	// get by ID
-	@GET
-	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Employee getEmployeeById(@PathParam("id") int id) {
-	    return employeeRepository.getEmployeeById(id);
-	}
-	
-	// Add via Post
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addEmployee(Employee employee) {
-		employeeRepository.addEmployee(employee);
-	    List<Employee> allEmployees = employeeRepository.getAllEmployees();  
-	    return Response.status(Response.Status.CREATED).entity(allEmployees).build();
-	}
-	
-	// Update details
-		@PUT
-		@Path("/{id}")
-		@Produces(MediaType.APPLICATION_JSON)
-		@Consumes(MediaType.APPLICATION_JSON)
-		public Response updateEmployee(@PathParam("id") int id, Employee employee) {
-		    Employee existingEmployee = employeeRepository.getEmployeeById(id);
-		    
-		    if (existingEmployee == null) {
-		        return Response.status(Response.Status.NOT_FOUND).build();
-		    }
-		    existingEmployee.setName(employee.getName());
-		    existingEmployee.setSalary(employee.getSalary());
-		    existingEmployee.setDepartment(employee.getDepartment());
-		    employeeRepository.updateEmployee(employee.getId(),existingEmployee);
-		    List<Employee> allEmployees = employeeRepository.getAllEmployees();  
-		    return Response.status(Response.Status.OK).entity(allEmployees).build();
-		}
-		
-		// Delete Employee details
-		@DELETE
-		@Path("/{id}")
-		@Produces(MediaType.APPLICATION_JSON)
-		public Response deleteEmployee(@PathParam("id") int id) {
-		    Employee employee = employeeRepository.getEmployeeById(id);
-		    if (employee == null) {
-		        return Response.status(Response.Status.NOT_FOUND).build();
-		    }
-		    employeeRepository.deleteEmployee(id);
-		    List<Employee> allEmployees = employeeRepository.getAllEmployees();  
-		    return Response.status(Response.Status.OK).entity(allEmployees).build();
-		}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.getAllEmployees();
+    }
 
-	
-	
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEmployeeById(@PathParam("id") int id) {
+        Employee employee = employeeRepository.getEmployeeById(id);
+        if (employee == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Employee not found").build();
+        }
+        return Response.ok(employee).build();
+    }
 
-	
-	
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addEmployee(Employee employee) {
+        if (employee.getDepartment() != null && employee.getDepartment().getId() != null) {
+            Department department = departmentRepository.getDepartmentById(employee.getDepartment().getId());
+            if (department != null) {
+                employee.setDepartment(department);
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).entity("Department not found").build();
+            }
+        }
+        employeeRepository.addEmployee(employee);
+        return Response.status(Response.Status.CREATED).entity(employee).build();
+    }
 
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateEmployee(@PathParam("id") int id, Employee updatedEmployee) {
+        if (updatedEmployee.getDepartment() != null && updatedEmployee.getDepartment().getId() != null) {
+            Department department = departmentRepository.getDepartmentById(updatedEmployee.getDepartment().getId());
+            if (department != null) {
+                updatedEmployee.setDepartment(department);
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).entity("Department not found").build();
+            }
+        }
+        employeeRepository.updateEmployee(id, updatedEmployee);
+        Employee newEmployee = employeeRepository.getEmployeeById(id);
+        return Response.status(Response.Status.OK).entity(newEmployee).build();
+    }
 
-//	implement these methods - 
-//	getEmployeeById
-//	@POST
-//	@Produces(MediaType.APPLICATION_JSON)
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	addEmployee
-//	updateEmployee 
-//	deleteEmployee 
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteEmployee(@PathParam("id") int id) {
+        employeeRepository.deleteEmployee(id);
+        return Response.status(Response.Status.NO_CONTENT).build();
+    }
 
+    // Clean up resources
+    @DELETE
+    @Path("/close")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response close() {
+        employeeRepository.close();
+        departmentRepository.close();
+        return Response.ok("Resources closed").build();
+    }
 }

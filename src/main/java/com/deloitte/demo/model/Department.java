@@ -1,10 +1,16 @@
 package com.deloitte.demo.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.List;
 
 @Entity
 @Table(name = "department")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Department {
 
     @Id
@@ -18,6 +24,7 @@ public class Department {
     private String location;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Employee> employees;
 
     public Department() {

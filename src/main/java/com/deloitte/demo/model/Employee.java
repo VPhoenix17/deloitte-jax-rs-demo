@@ -1,9 +1,13 @@
 package com.deloitte.demo.model;
 
-import javax.persistence.*; 
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity 
 @Table(name = "emps")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") 
 public class Employee {
 
     @Id
@@ -68,4 +72,3 @@ public class Employee {
         return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + ", department=" + department + "]";
     }
 }
-
