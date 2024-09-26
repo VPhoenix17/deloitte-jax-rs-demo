@@ -2,8 +2,11 @@ package com.deloitte.demo.model;
 
 import javax.persistence.*;
 
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference; 
+
 
 @Entity 
 @Table(name = "emps")
@@ -22,6 +25,7 @@ public class Employee {
     
     @ManyToOne
     @JoinColumn(name = "department_id")
+    @JsonBackReference
     private Department department;
 
 
