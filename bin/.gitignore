@@ -15,6 +15,3 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
-
-# Ignore persistence.xml
-/src/main/resources/META-INF/persistence.xml

@@ -16,13 +16,17 @@ public class Employee {
 
     @Column(name = "salary")
     private double salary;
+    
+    @Column(name = "deptId")
+    private int deptId;
 
     public Employee() {
     }
 
-    public Employee(String name, double salary) {
+    public Employee(String name, double salary,int deptId) {
         this.name = name;
         this.salary = salary;
+        this.deptId=deptId;
     }
 
     // Getters and Setters
@@ -49,9 +53,17 @@ public class Employee {
     public void setSalary(double salary) {
         this.salary = salary;
     }
+    public int getdeptId() {
+        return deptId;
+    }
+
+    public void setdeptId(int deptId) {
+        this.deptId = deptId;
+    }
+
 
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
+        return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + ", dept=" + deptId + "]";
     }
 }
