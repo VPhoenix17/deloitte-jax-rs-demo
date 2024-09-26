@@ -59,7 +59,7 @@ public class EmployeeResource {
 		    }
 		    existingEmployee.setName(employee.getName());
 		    existingEmployee.setSalary(employee.getSalary());
-		    existingEmployee.setdeptId(employee.getdeptId());
+		    existingEmployee.setDepartment(employee.getDepartment());
 		    employeeRepository.updateEmployee(employee.getId(),existingEmployee);
 		    List<Employee> allEmployees = employeeRepository.getAllEmployees();  
 		    return Response.status(Response.Status.OK).entity(allEmployees).build();

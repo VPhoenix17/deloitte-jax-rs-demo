@@ -1,9 +1,8 @@
 package com.deloitte.demo.model;
 
-
 import javax.persistence.*; 
 
-@Entity //Mandatory
+@Entity 
 @Table(name = "emps")
 public class Employee {
 
@@ -17,16 +16,18 @@ public class Employee {
     @Column(name = "salary")
     private double salary;
     
-    @Column(name = "deptId")
-    private int deptId;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
 
     public Employee() {
     }
 
-    public Employee(String name, double salary,int deptId) {
+    public Employee(String name, double salary,Department department) {
         this.name = name;
         this.salary = salary;
-        this.deptId=deptId;
+        this.department = department;
     }
 
     // Getters and Setters
@@ -53,17 +54,18 @@ public class Employee {
     public void setSalary(double salary) {
         this.salary = salary;
     }
-    public int getdeptId() {
-        return deptId;
+    
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setdeptId(int deptId) {
-        this.deptId = deptId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
-
 
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + ", dept=" + deptId + "]";
+        return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + ", department=" + department + "]";
     }
 }
+

@@ -18,3 +18,4 @@ buildNumber.properties
 
 # Ignore persistence.xml
 /src/main/resources/META-INF/persistence.xml
+
