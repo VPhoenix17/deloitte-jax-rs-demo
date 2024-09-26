@@ -17,5 +17,5 @@ buildNumber.properties
 .classpath
 
 
-# Ignore persistence.xml file
-/deloitte-jax-rs-demo/src/main/resources/META-INF/persistence.xml
+# Ignore persistence.xml
+/src/main/resources/META-INF/persistence.xml
