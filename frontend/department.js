@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8081/deloitte-jax-rs-demo/departments"; 
+const baseUrl = "http://localhost:8090/deloitte-jax-rs-demo/departments"; 
 
 async function addDepartment() {
     const deptName = document.getElementById('deptName').value;
@@ -78,7 +78,7 @@ async function updateDepartment() {
     const location = document.getElementById('updateLocation').value;
 
     const updatedDepartment = {
-        departmentName: newDeptName,
+        name: newDeptName,
         location: location
     };
 
