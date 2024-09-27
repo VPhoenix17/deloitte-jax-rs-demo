@@ -1,6 +1,5 @@
-const baseUrl = "http://localhost:8081/deloitte-jax-rs-demo/departments"; // Base URL of your REST API
+const baseUrl = "http://localhost:8081/deloitte-jax-rs-demo/departments"; 
 
-// Function to add a new department
 async function addDepartment() {
     const deptName = document.getElementById('deptName').value;
     //const Id = document.getElementById('deptId').value;
@@ -73,7 +72,6 @@ async function getDepartmentById() {
     }
 }
 
-// Function to update department
 async function updateDepartment() {
     const deptId = document.getElementById('updateDeptId').value;
     const newDeptName = document.getElementById('updateDeptName').value;
@@ -99,7 +97,6 @@ async function updateDepartment() {
     }
 }
 
-// Function to delete department
 async function deleteDepartment() {
     const deptId = document.getElementById('deleteDeptId').value;
 
