@@ -46,6 +46,7 @@ public class EmployeeResource {
             }
         }
         employeeRepository.addEmployee(employee);
+        System.out.println(employee);
         return Response.status(Response.Status.CREATED).entity(employee).build();
     }
 
