@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5">Employee Management</h1>
+
+        <h2 class="mt-5">All Employees</h2>
+        <div id="employeeList"></div>
+        <button class="btn btn-primary" onclick="viewAllEmployees()">View All Employees</button>
+
+        <h2 class="mt-5">Add Employee</h2>
+        <form id="addEmployeeForm">
+            <div class="form-group">
+                <label for="addName">Employee Name:</label>
+                <input type="text" class="form-control" id="addName" placeholder="Enter Employee Name">
+            </div>
+            <div class="form-group">
+                <label for="addSalary">Salary:</label>
+                <input type="number" class="form-control" id="addSalary" placeholder="Enter Salary">
+            </div>
+            <button class="btn btn-primary" type="button" onclick="addEmployee()">Add Employee</button>
+        </form>
+        <div id="addResult"></div>
+
+        <h2 class="mt-5">Update Employee</h2>
+        <form id="updateEmployeeForm">
+            <div class="form-group">
+                <label for="updateId">Employee ID:</label>
+                <input type="number" class="form-control" id="updateId" placeholder="Enter Employee ID">
+            </div>
+            <div class="form-group">
+                <label for="updateName">New Name:</label>
+                <input type="text" class="form-control" id="updateName" placeholder="Enter New Name">
+            </div>
+            <div class="form-group">
+                <label for="updateSalary">New Salary:</label>
+                <input type="number" class="form-control" id="updateSalary" placeholder="Enter New Salary">
+            </div>
+            <button class="btn btn-primary" type="button" onclick="updateEmployee()">Update Employee</button>
+        </form>
+        <div id="updateResult"></div>
+
+        <h2 class="mt-5">Delete Employee</h2>
+        <form id="deleteEmployeeForm">
+            <div class="form-group">
+                <label for="deleteId">Employee ID:</label>
+                <input type="number" class="form-control" id="deleteId" placeholder="Enter Employee ID">
+            </div>
+            <button class="btn btn-primary" type="button" onclick="deleteEmployee()">Delete Employee</button>
+        </form>
+        <div id="deleteResult"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+</head>
+
+<body>
+    <h1>Employee Management</h1>
+
+    <h2>All Employees</h2>
+    <div id="employeeList"></div>
+    <button onclick="viewAllEmployees()">View All Employees</button>
+
+    <h2>Add Employee</h2>
+    <input type="text" id="addName" placeholder="Enter Employee Name">
+    <input type="number" id="addSalary" placeholder="Enter Salary">
+    <button onclick="addEmployee()">Add Employee</button>
+    <div id="addResult"></div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html> -->
